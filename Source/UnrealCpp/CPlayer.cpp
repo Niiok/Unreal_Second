@@ -4,6 +4,7 @@
 #include "CPlayer.h"
 #include "Global.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 
@@ -13,12 +14,27 @@ ACPlayer::ACPlayer()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	SpringArm = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
-	SpringArm->SetupAttachment(GetCapsuleComponent());
+	//SpringArm = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
+	//SpringArm->SetupAttachment(GetCapsuleComponent());
 
-	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
-	Camera->SetupAttachment(SpringArm);
+	//Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
+	//Camera->SetupAttachment(SpringArm);
 
+	CHelpers::CreateComponent<USpringArmComponent>(this, &SpringArm, "SpringArm", GetCapsuleComponent());
+	CHelpers::CreateComponent<UCameraComponent>(this, &Camera, "Camera", SpringArm);
+
+	bUseControllerRotationYaw = false;
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
+
+	USkeletalMesh* mesh;
+	CHelpers::GetAsset<USkeletalMesh>(&mesh,
+		"SkeletalMesh'/Game/Character/Mesh/SK_Mannequin.SK_Mannequin'");
+	GetMesh()->SetSkeletalMesh(mesh);
+	GetMesh()->SetRelativeLocation(FVector(0, 0, -90));
+	GetMesh()->SetRelativeRotation(FRotator(0, -90, 0));	// pitch, yaw, roll
+
+	SpringArm
 }
 
 // Called when the game starts or when spawned
