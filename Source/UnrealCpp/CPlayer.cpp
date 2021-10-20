@@ -34,7 +34,10 @@ ACPlayer::ACPlayer()
 	GetMesh()->SetRelativeLocation(FVector(0, 0, -90));
 	GetMesh()->SetRelativeRotation(FRotator(0, -90, 0));	// pitch, yaw, roll
 
-	SpringArm
+	SpringArm->SetRelativeLocation(FVector(0, 0, 60));
+	SpringArm->TargetArmLength = 200.0f;
+	SpringArm->bDoCollisionTest = false;
+	SpringArm->bUsePawnControlRotation = true;
 }
 
 // Called when the game starts or when spawned
@@ -56,5 +59,40 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis("MoveForward", this, &ACPlayer::OnMoveForward);
+	PlayerInputComponent->BindAxis("MoveRIght", this, &ACPlayer::OnMoveRight);
+	PlayerInputComponent->BindAxis("HorizontalLook", this, &ACPlayer::OnHorizontalLook);
+	PlayerInputComponent->BindAxis("VerticalLook", this, &ACPlayer::OnVerticalLook);
+	PlayerInputComponent->BindAction()
+	//	this, &ACPlayer::OnJump);
+}
+
+void ACPlayer::OnMoveForward(float Axis)
+{
+	FRotator rotator = FRotator(0, GetControlRotation().Yaw, 0);
+	FVector direction = FQuat(rotator).GetForwardVector().GetSafeNormal2D();
+	AddMovementInput(direction, Axis);
+}
+
+void ACPlayer::OnMoveRight(float Axis)
+{
+	FRotator rotator = FRotator(0, GetControlRotation().Yaw, 0);
+	FVector direction = FQuat(rotator).GetRightVector().GetSafeNormal2D();
+	AddMovementInput(direction, Axis);
+}
+
+void ACPlayer::OnHorizontalLook(float Axis)
+{
+	AddControllerYawInput(Axis);
+}
+
+void ACPlayer::OnVerticalLook(float Axis)
+{
+	AddControllerPitchInput(Axis);
+}
+
+void ACPlayer::OnJump()
+{
+	Jump();
 }
 

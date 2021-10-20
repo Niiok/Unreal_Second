@@ -21,6 +21,13 @@ public:
 		*outObject = obj;
 	}
 
+	template<typename T> static void GetClass(TSubclassOf<T>* outClass, FString inPath)
+	{
+		ConstructorHelpers::FClassFinder<APawn>asset(*inPath);
+		verifyf(asset.Succeeded(), L"(asset.Succeeded())");
+		*outClass = asset.Class;
+	}
+
 	template<typename T> static void CreateComponent(AActor* inActor, T** inComponent,
 		FName inName, USceneComponent* inParent = NULL)
 	{

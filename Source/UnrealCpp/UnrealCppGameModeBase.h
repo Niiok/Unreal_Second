@@ -13,5 +13,9 @@ UCLASS()
 class UNREALCPP_API AUnrealCppGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+	AUnrealCppGameModeBase();
+
 	
 };
