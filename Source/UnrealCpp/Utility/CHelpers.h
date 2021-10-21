@@ -23,7 +23,7 @@ public:
 
 	template<typename T> static void GetClass(TSubclassOf<T>* outClass, FString inPath)
 	{
-		ConstructorHelpers::FClassFinder<APawn>asset(*inPath);
+		ConstructorHelpers::FClassFinder<T>asset(*inPath);
 		verifyf(asset.Succeeded(), L"(asset.Succeeded())");
 		*outClass = asset.Class;
 	}

@@ -15,7 +15,7 @@ class UNREALCPP_API UCAnimInstance : public UAnimInstance
 	GENERATED_BODY()
 	
 protected:
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Animation")
 		float Speed;
 
 public :
