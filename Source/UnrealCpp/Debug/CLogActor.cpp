@@ -18,12 +18,19 @@ void ACLogActor::BeginPlay()
 	Super::BeginPlay();
 
 	CLog::Print(10);
+	CLog::Print(20, 1);
+	CLog::Print(30, 2, 20.0f);
+	CLog::Print(30, 2, 2.0f);
+
+	CLog::Print("Unreal Project");
+
+
 }
 
 // Called every frame
 void ACLogActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	time += DeltaTime;
+	CLog::Print(FString::SanitizeFloat(time),9);
 }
-

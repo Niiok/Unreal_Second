@@ -4,16 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "CLogActor.generated.h"
+#include "DrawDebugHelpers.h"
+#include "CDrawDebug.generated.h"
 
 UCLASS()
-class UNREALCPP_API ACLogActor : public AActor
+class UNREALCPP_API ACDrawDebug : public AActor
 {
 	GENERATED_BODY()
 	
+private:
+	FVector InitLocation[5];
+	FVector Location[5];
+	FBox Box;
+
 public:	
 	// Sets default values for this actor's properties
-	ACLogActor();
+	ACDrawDebug();
 
 protected:
 	// Called when the game starts or when spawned
@@ -23,7 +29,4 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-
-private:
-	float time;
 };
