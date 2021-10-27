@@ -1,0 +1,37 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "CLight.generated.h"
+
+UCLASS()
+class UNREALCPP_API ACLight : public AActor
+{
+	GENERATED_BODY()
+	
+public:	
+	// Sets default values for this actor's properties
+	ACLight();
+
+private:
+	UPROPERTY(VisibleDefaultsOnly)
+		class USceneComponent* Scene;
+
+	UPROPERTY(VisibleDefaultsOnly)
+		class UTextRenderComponent* Text;
+
+	UPROPERTY(VisibleDefaultsOnly)
+		class UPointLightComponent* Light;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+private:
+	UFUNCTION()
+		void OnLight();
+	UFUNCTION()
+		void OffLight();
+};
