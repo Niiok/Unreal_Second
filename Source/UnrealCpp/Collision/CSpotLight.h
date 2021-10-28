@@ -4,16 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "CLight.generated.h"
+#include "CSpotLight.generated.h"
 
 UCLASS()
-class UNREALCPP_API ACLight : public AActor
+class UNREALCPP_API ACSpotLight : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ACLight();
+	ACSpotLight();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(VisibleDefaultsOnly)
@@ -23,22 +27,9 @@ private:
 		class UTextRenderComponent* Text;
 
 	UPROPERTY(VisibleDefaultsOnly)
-		class UPointLightComponent* Light;
-
-	UPROPERTY(VisibleDefaultsOnly)
-		class UPointLightComponent* Light2;
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+		class USpotLightComponent* SpotLights[3];
 
 private:
 	UFUNCTION()
-		void OnLight();
-	UFUNCTION()
-		void OffLight();
-	
-	UFUNCTION()
-		FString OnRandomLight(FLinearColor color);
-	
+		void OnLightColor(int32 InIndex, FLinearColor InColor);
 };

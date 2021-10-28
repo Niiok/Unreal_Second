@@ -4,16 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "CLight.generated.h"
+#include "CBox.generated.h"
 
 UCLASS()
-class UNREALCPP_API ACLight : public AActor
+class UNREALCPP_API ACBox : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ACLight();
+	ACBox();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(VisibleDefaultsOnly)
@@ -23,22 +27,15 @@ private:
 		class UTextRenderComponent* Text;
 
 	UPROPERTY(VisibleDefaultsOnly)
-		class UPointLightComponent* Light;
+		class UStaticMeshComponent* Mesh[3];
 
-	UPROPERTY(VisibleDefaultsOnly)
-		class UPointLightComponent* Light2;
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	//UPROPERTY(VisibleDefaultsOnly)
+	UMaterialInstanceDynamic*	Materials[3];
+	FVector						WorldLocation[3];
+
 
 private:
 	UFUNCTION()
-		void OnLight();
-	UFUNCTION()
-		void OffLight();
-	
-	UFUNCTION()
-		FString OnRandomLight(FLinearColor color);
-	
+		void OnPhysics(int32 InIndex, FLinearColor InColor);
 };

@@ -1,15 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Global.h"
-#include "CTrigger.h"
+#include "CMulticastTrigger.h"
 #include "Components/BoxComponent.h"
 #include "Components/TextRenderComponent.h"
 #include "Components/PointLightComponent.h"
 
-
-
 // Sets default values
-ACTrigger::ACTrigger()
+ACMulticastTrigger::ACMulticastTrigger()
 {
 	CHelpers::CreateComponent<USceneComponent>(this, &Scene, "Scene");
 	CHelpers::CreateComponent<UBoxComponent>(this, &Box, "Box", Scene);
@@ -27,36 +25,29 @@ ACTrigger::ACTrigger()
 }
 
 // Called when the game starts or when spawned
-void ACTrigger::BeginPlay()
+void ACMulticastTrigger::BeginPlay()
 {
 	Super::BeginPlay();
-
-	OnActorBeginOverlap.AddDynamic(this, &ACTrigger::ActorBeginOverlap);
-	OnActorEndOverlap.AddDynamic(this, &ACTrigger::ActorEndOverlap);
+	
 }
 
 
-void ACTrigger::ActorBeginOverlap(AActor * OverlappedActor, AActor * OtherActor)
+void ACMulticastTrigger::ActorBeginOverlap(AActor * OverlappedActor, AActor * OtherActor)
 {
-	if (OnBoxLightBeginOverlap.IsBound())
-		OnBoxLightBeginOverlap.Execute();
-	
-	if (OnBoxLightRandomBeginOverlap.IsBound())
+	if (OnMultiLightBeginOverlap.IsBound())
 	{
+		int32 index = UKismetMathLibrary::RandomIntegerInRange(0, 2);
+
 		FLinearColor color;
 		color.R = UKismetMathLibrary::RandomFloatInRange(0, 1);
 		color.G = UKismetMathLibrary::RandomFloatInRange(0, 1);
 		color.B = UKismetMathLibrary::RandomFloatInRange(0, 1);
 		color.A = 1.0f;
 
-		FString str = OnBoxLightRandomBeginOverlap.Execute(color);
-		CLog::Log(str);
+		OnMultiLightBeginOverlap.Broadcast(index, color);	
 	}
 }
 
-void ACTrigger::ActorEndOverlap(AActor * OverlappedActor, AActor * OtherActor)
+void ACMulticastTrigger::ActorEndOverlap(AActor * OverlappedActor, AActor * OtherActor)
 {
-	if (OnBoxLightEndOverlap.IsBound())
-		OnBoxLightEndOverlap.Execute();
-
 }
