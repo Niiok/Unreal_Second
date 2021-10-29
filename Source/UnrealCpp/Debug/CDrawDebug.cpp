@@ -7,38 +7,39 @@
 // Sets default values
 ACDrawDebug::ACDrawDebug()
 {
- //	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	//PrimaryActorTick.bCanEverTick = true;
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
 
-	//InitLocation[0] = FVector::ZeroVector;
-	//InitLocation[1] = FVector(0, 400, 0);
-	//InitLocation[2] = FVector(0, 1000, 0);
-	//InitLocation[3] = FVector(0, 1600, 0);
-	//InitLocation[4] = FVector(300, 1000, 0);
+	InitLocation[0] = FVector::ZeroVector;
+	InitLocation[1] = FVector(0, 400, 0);
+	InitLocation[2] = FVector(0, 1000, 0);
+	InitLocation[3] = FVector(0, 1600, 0);
+	InitLocation[4] = FVector(300, 1000, 0);
 
-	//Box = FBox(FVector(-50, -100, -50), FVector(50, 100, 50));
-	//Transform.SetLocation(FVector(200, 1600, 0));
+	Box = FBox(FVector(-50, -100, -50), FVector(50, 100, 50));
+	Transform.SetLocation(FVector(200, 1600, 0));
 }
 
 // Called when the game starts or when spawned
 void ACDrawDebug::BeginPlay()
 {
-	/*Super::BeginPlay();
+	Super::BeginPlay();
 	
 	for (int32 i = 0; i < 5; i++)
 		Location[i] = InitLocation[i] + GetActorLocation();
-	DrawDebugBox(GetWorld(), Location[0] + Box.GetCenter(), Box.GetExtent(), FColor::Red, true);*/
+	DrawDebugBox(GetWorld(), Location[0] + Box.GetCenter(), Box.GetExtent(), FColor::Red, true);
 }
 
 // Called every frame
 void ACDrawDebug::Tick(float DeltaTime)
 {
-	/*Super::Tick(DeltaTime);
+	Super::Tick(DeltaTime);
 
 	for (int32 i = 0; i < 5; ++i)
 		Location[i] = InitLocation[i] + GetActorLocation();
 
-	DrawDebugSolidBox(GetWorld(), Location[0], Box.GetCenter(), Box.GetExtent(), FColor::Red);
+	//DrawDebugSolidBox(GetWorld(), Location[0], Box.GetCenter(), Box.GetExtent(), &FColor::Red);
+	DrawDebugSolidBox(GetWorld(), Box, FColor::Red);
 
 	DrawDebugPoint(GetWorld(), Location[1], 100, FColor::Red);
 
@@ -55,6 +56,6 @@ void ACDrawDebug::Tick(float DeltaTime)
 
 	DrawDebugPoint(GetWorld(), location, 100, FColor::Emerald);
 
-	DrawDebugDirectionalArrow(GetWorld(), location, Location[3], 360, FColor::Yellow);*/
+	DrawDebugDirectionalArrow(GetWorld(), location, Location[3], 360, FColor::Yellow);
 }
 

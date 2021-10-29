@@ -45,6 +45,14 @@ void ACSpotLight::BeginPlay()
 	CHelpers::FindActor<ACMulticastTrigger>(GetWorld(), triggers);
 
 	triggers[0]->OnMultiLightBeginOverlap.AddUFunction(this, "OnLightColor");
+
+	if (triggers[0]->OnMultiLightBeginOverlap.IsBound())
+	{
+		CLog::Log("Ouch! SpotLight triggered.");
+		triggers[0]->OnMultiLightBeginOverlap.Broadcast(0, FLinearColor::Blue);
+	}
+
+
 }
 
 

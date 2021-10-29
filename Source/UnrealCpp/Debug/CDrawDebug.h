@@ -16,6 +16,7 @@ private:
 	FVector InitLocation[5];
 	FVector Location[5];
 	FBox Box;
+	FTransform Transform;
 
 public:	
 	// Sets default values for this actor's properties
