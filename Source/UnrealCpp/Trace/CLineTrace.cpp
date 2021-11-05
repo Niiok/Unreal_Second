@@ -3,9 +3,9 @@
 
 #include "CLineTrace.h"
 #include "Global.h"
-#include "Components/TextRenderComponent.h"
+#include "CPlayer.h"
 #include "CCylinder.h"
-#include "DrawDebugHelpers.h"
+#include "Components/TextRenderComponent.h"
 
 // Sets default values
 ACLineTrace::ACLineTrace()
@@ -31,6 +31,7 @@ void ACLineTrace::BeginPlay()
 	Super::BeginPlay();
 	
 	CHelpers::FindActor<ACCylinder>(GetWorld(), Cylinders);
+	OnTraceResult.AddDynamic(this, &ACLineTrace::StartJump);
 }
 
 // Called every frame
@@ -64,8 +65,21 @@ void ACLineTrace::Tick(float DeltaTime)
 			color.B = UKismetMathLibrary::RandomFloatInRange(0, 1);
 			color.A = 1.0f;
 
-			OnTraceResult.Broadcast(hitResult.Actor, color);
+			OnTraceResult.Broadcast(&(*hitResult.Actor), color);
 		}
 	}
+}
+
+void ACLineTrace::RestoreColor(class ACPlayer* InPlayer)
+{
+	InPlayer->ChangeColor(FLinearColor(1, 1, 1));
+}
+
+void ACLineTrace::StartJump(class AActor* InActor, FLinearColor InColor)
+{
+	ACPlayer* player = Cast<ACPlayer>(InActor);
+	CheckNull(player);
+
+	player->Jump();
 }
 

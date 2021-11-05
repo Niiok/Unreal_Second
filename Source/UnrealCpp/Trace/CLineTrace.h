@@ -14,6 +14,10 @@ class UNREALCPP_API ACLineTrace : public AActor
 {
 	GENERATED_BODY()
 
+public:	
+	// Sets default values for this actor's properties
+	ACLineTrace();
+
 
 private:
 	UPROPERTY(VisibleDefaultsOnly)
@@ -24,9 +28,6 @@ private:
 	
 	TArray<ACCylinder*> Cylinders;
 
-public:	
-	// Sets default values for this actor's properties
-	ACLineTrace();
 
 protected:
 	// Called when the game starts or when spawned
@@ -40,5 +41,14 @@ public:
 public:
 	UPROPERTY(BlueprintAssignable)
 		FTraceResult	OnTraceResult;
+
+protected:
+	UFUNCTION(BlueprintCallable)
+		void RestoreColor(class ACPlayer* InPlayer);
+
+private:
+	UFUNCTION()
+		void StartJump(class AActor* InActor, FLinearColor InColor);
+
 
 };

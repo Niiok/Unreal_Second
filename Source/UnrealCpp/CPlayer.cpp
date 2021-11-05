@@ -74,6 +74,11 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("Jump", EInputEvent::IE_Pressed, this, &ACPlayer::OnJump);
 }
 
+void ACPlayer::ChangeColor(FLinearColor InColor)
+{
+	//BodyMaterial-> 
+}
+
 void ACPlayer::OnMoveForward(float Axis)
 {
 	FRotator rotator = FRotator(0, GetControlRotation().Yaw, 0);

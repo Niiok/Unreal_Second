@@ -33,6 +33,14 @@ private:
 		class UCameraComponent* Camera;
 
 private:
+	class UMaterialInstanceDynamic* BodyMaterial;
+	class UMaterialInstanceDynamic* LogoMaterial;
+
+public:
+	UFUNCTION(BlueprintCallable)
+		void ChangeColor(FLinearColor InColor);
+
+private:
 	void OnMoveForward(float Axis);
 	void OnMoveRight(float Axis);
 
