@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Materials/MaterialInstanceConstant.h"
 
 // Sets default values
 ACPlayer::ACPlayer()
@@ -50,6 +51,25 @@ void ACPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	// Material
+	UMaterialInstanceConstant* bodyMaterial;
+	CHelpers::GetAssetDynamic<UMaterialInstanceConstant>(
+		&bodyMaterial,
+		"MaterialInstanceConstant'/Game/Character/Materials/M_UE4Man_Body_Inst.M_UE4Man_Body_Inst'");
+	
+	UMaterialInstanceConstant* logoMaterial;
+	CHelpers::GetAssetDynamic<UMaterialInstanceConstant>(
+		&logoMaterial,
+		"MaterialInstanceConstant'/Game/Character/Materials/M_UE4Man_ChestLogo.M_UE4Man_ChestLogo'");
+
+	BodyMaterial = UMaterialInstanceDynamic::Create(
+		bodyMaterial, this);
+	LogoMaterial = UMaterialInstanceDynamic::Create(
+		bodyMaterial, this);
+
+	GetMesh()->SetMaterial(0, BodyMaterial);
+	GetMesh()->SetMaterial(1, LogoMaterial);
+
 }
 
 // Called every frame
@@ -76,7 +96,8 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ACPlayer::ChangeColor(FLinearColor InColor)
 {
-	//BodyMaterial-> 
+	BodyMaterial->SetVectorParameterValue("BodyColor", InColor);
+	LogoMaterial->SetVectorParameterValue("BodyColor", InColor);
 }
 
 void ACPlayer::OnMoveForward(float Axis)

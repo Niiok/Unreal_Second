@@ -16,7 +16,7 @@ ACLineTrace::ACLineTrace()
 	CHelpers::CreateComponent<USceneComponent>(this, &Scene, "Scene");
 	CHelpers::CreateComponent<UTextRenderComponent>(this, &Text, "Text", Scene);
 
-	Text->SetRelativeLocation(FVector(0, 0, 100));
+	Text->SetRelativeLocation(FVector(0, 0, 140));
 	Text->SetRelativeRotation(FRotator(0, 90, 0));
 	Text->SetRelativeScale3D(FVector(2));
 	Text->TextRenderColor = FColor::Red;
@@ -65,12 +65,12 @@ void ACLineTrace::Tick(float DeltaTime)
 			color.B = UKismetMathLibrary::RandomFloatInRange(0, 1);
 			color.A = 1.0f;
 
-			OnTraceResult.Broadcast(&(*hitResult.Actor), color);
+			OnTraceResult.Broadcast(hitResult.GetActor(), color);
 		}
 	}
 }
 
-void ACLineTrace::RestoreColor(class ACPlayer* InPlayer)
+void ACLineTrace::RestoreColor(ACPlayer* InPlayer)
 {
 	InPlayer->ChangeColor(FLinearColor(1, 1, 1));
 }

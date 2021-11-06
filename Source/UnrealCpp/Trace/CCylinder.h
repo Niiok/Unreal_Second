@@ -11,6 +11,15 @@ class UNREALCPP_API ACCylinder : public AActor
 {
 	GENERATED_BODY()
 
+public:	
+	// Sets default values for this actor's properties
+	ACCylinder();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+
 private:
 	UPROPERTY(VisibleDefaultsOnly)
 		class USceneComponent* Scene;
@@ -20,13 +29,5 @@ private:
 
 	UPROPERTY(VisibleDefaultsOnly)
 		class UStaticMeshComponent* Mesh;
-
-public:	
-	// Sets default values for this actor's properties
-	ACCylinder();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
 };

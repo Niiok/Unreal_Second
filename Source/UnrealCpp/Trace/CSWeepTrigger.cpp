@@ -22,6 +22,7 @@ ACSWeepTrigger::ACSWeepTrigger()
 	Text->SetRelativeScale3D(FVector(2));
 	Text->TextRenderColor = FColor::Red;
 	Text->HorizontalAlignment = EHorizTextAligment::EHTA_Center;
+	Text->Text = FText::FromString(GetName());
 	Box->bHiddenInGame = false;
 }
 
@@ -33,6 +34,6 @@ void ACSWeepTrigger::BeginPlay()
 	TArray<ACExplosion*> explosions;
 	CHelpers::FindActor(GetWorld(), explosions);
 
-	OnActorBeginOverlap.AddDynramic(explosions[0], &ACExplosion::OnActorBeginOverlap);
+	OnActorBeginOverlap.AddDynamic(explosions[0], &ACExplosion::ActorBeginOverlap);
 }
 

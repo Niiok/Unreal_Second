@@ -5,6 +5,7 @@
 #include "Global.h"
 #include "Components/BoxComponent.h"
 #include "Components/TextRenderComponent.h"
+#include "CPlayer.h"
 
 // Sets default values
 ACOverride::ACOverride()
@@ -35,9 +36,17 @@ void ACOverride::BeginPlay()
 
 void ACOverride::ActorBeginOverlap(AActor * OverlappedActor, AActor * OtherActor)
 {
+	ChangeColorRed();
 }
 
 void ACOverride::ActorEndOverlap(AActor * OverlappedActor, AActor * OtherActor)
 {
+	ChangeColorWhite();
+}
+
+void ACOverride::ChangeColorWhite_Implementation()
+{
+	ACPlayer* player = Cast<ACPlayer>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	player->ChangeColor(FLinearColor(0, 0, 1));
 }
 

@@ -39,4 +39,9 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 		void ChangeColorRed();
 
+
+	UFUNCTION(BlueprintNativeEvent)
+		void ChangeColorWhite();
+		void ChangeColorWhite_Implementation();
+
 };
