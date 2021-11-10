@@ -9,6 +9,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Materials/MaterialInstanceConstant.h"
+#include "CRifle.h"
 
 // Sets default values
 ACPlayer::ACPlayer()
@@ -70,6 +71,7 @@ void ACPlayer::BeginPlay()
 	GetMesh()->SetMaterial(0, BodyMaterial);
 	GetMesh()->SetMaterial(1, LogoMaterial);
 
+	Rifle = ACRifle::Spawn(GetWorld(), this);
 }
 
 // Called every frame
@@ -91,7 +93,10 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	PlayerInputComponent->BindAction("Running", EInputEvent::IE_Pressed, this,&ACPlayer::OnRunning);
 	PlayerInputComponent->BindAction("Running", EInputEvent::IE_Released, this,&ACPlayer::OffRunning);
+	
 	PlayerInputComponent->BindAction("Jump", EInputEvent::IE_Pressed, this, &ACPlayer::OnJump);
+
+	PlayerInputComponent->BindAction("Rifle", EInputEvent::IE_Pressed, this, &ACPlayer::OnRifle);
 }
 
 void ACPlayer::ChangeColor(FLinearColor InColor)
@@ -137,5 +142,15 @@ void ACPlayer::OffRunning()
 void ACPlayer::OnJump()
 {
 	Jump();
+}
+
+void ACPlayer::OnRigle()
+{
+	if (Rifle->GetEquipped())
+	{
+		Rifle->Unequip();
+		return;
+	}
+	Rifle->Equip();
 }
 

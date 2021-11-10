@@ -41,6 +41,9 @@ public:
 		void ChangeColor(FLinearColor InColor);
 
 private:
+	class ACRifle* Rifle;
+
+private:
 	void OnMoveForward(float Axis);
 	void OnMoveRight(float Axis);
 
@@ -51,4 +54,6 @@ private:
 	void OffRunning();
 
 	void OnJump();
+
+	void OnRigle();
 };
