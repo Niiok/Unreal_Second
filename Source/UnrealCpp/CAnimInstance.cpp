@@ -4,6 +4,8 @@
 #include "CAnimInstance.h"
 #include "Global.h"
 #include "GameFrameWork/Character.h"
+#include "CRifle.h"
+#include "iRifle.h"
 
 void UCAnimInstance::NativeBeginPlay()
 {
@@ -18,4 +20,10 @@ void UCAnimInstance::NativeUpdateAnimation(float deltaSecond)
 	CheckNull(OwnerCharacter);
 
 	Speed = OwnerCharacter->GetVelocity().Size2D();
+
+	IiRifle* rifle = Cast<IiRifle>(OwnerCharacter);
+	if (!!rifle)
+	{
+		bEquipped = rifle->GetRifle()->GetEquipped();
+	}
 }

@@ -94,7 +94,7 @@ void ACRifle::Begin_Unequip()
 	bEquipped = false;
 	AttachToComponent(OwnerCharacter->GetMesh(),
 		FAttachmentTransformRules(EAttachmentRule::KeepRelative, true),
-		HandSocket);
+		HolsterSocket);
 }
 
 void ACRifle::End_Unequip()

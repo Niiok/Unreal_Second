@@ -17,6 +17,8 @@ class UNREALCPP_API UCAnimInstance : public UAnimInstance
 protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Animation")
 		float Speed;
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Animation")
+		bool bEquipped;
 
 public :
 	virtual void NativeBeginPlay() override;

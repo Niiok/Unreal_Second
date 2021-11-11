@@ -144,7 +144,7 @@ void ACPlayer::OnJump()
 	Jump();
 }
 
-void ACPlayer::OnRigle()
+void ACPlayer::OnRifle()
 {
 	if (Rifle->GetEquipped())
 	{
