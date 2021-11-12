@@ -48,6 +48,7 @@ private:
 public:
 	FORCEINLINE class ACRifle* GetRifle() override { return Rifle; }
 
+
 private:
 	void OnMoveForward(float Axis);
 	void OnMoveRight(float Axis);
@@ -61,4 +62,8 @@ private:
 	void OnJump();
 
 	void OnRifle();
+
+	void OnAim();
+	void OffAim();
+
 };

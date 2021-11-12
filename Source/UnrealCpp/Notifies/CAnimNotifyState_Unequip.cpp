@@ -1,18 +1,18 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "CAnimNotifyState_Equip.h"
+#include "CAnimNotifyState_Unequip.h"
 #include "Global.h"
 #include "CRifle.h"
 #include "iRifle.h"
 
 
-FString UCAnimNotifyState_Equip::GetNotifyName_Implementation() const
+FString UCAnimNotifyState_Unequip::GetNotifyName_Implementation() const
 {
-	return "Equip";
+	return "Unequip";
 }
 
-void UCAnimNotifyState_Equip::NotifyBegin(USkeletalMeshComponent * MeshComp, UAnimSequenceBase * Animation, float TotalDuration)
+void UCAnimNotifyState_Unequip::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, float TotalDuration)
 {
 	Super::NotifyBegin(MeshComp, Animation, TotalDuration);
 	CheckNull(MeshComp);
@@ -20,10 +20,10 @@ void UCAnimNotifyState_Equip::NotifyBegin(USkeletalMeshComponent * MeshComp, UAn
 	IiRifle* rifle = Cast<IiRifle>(MeshComp->GetOwner());
 	CheckNull(rifle);
 
-	rifle->GetRifle()->Begin_Equip();
+	rifle->GetRifle()->Begin_Unequip();
 }
 
-void UCAnimNotifyState_Equip::NotifyEnd(USkeletalMeshComponent * MeshComp, UAnimSequenceBase * Animation)
+void UCAnimNotifyState_Unequip::NotifyEnd(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation)
 {
 	Super::NotifyEnd(MeshComp, Animation);
 	CheckNull(MeshComp);
@@ -31,5 +31,5 @@ void UCAnimNotifyState_Equip::NotifyEnd(USkeletalMeshComponent * MeshComp, UAnim
 	IiRifle* rifle = Cast<IiRifle>(MeshComp->GetOwner());
 	CheckNull(rifle);
 
-	rifle->GetRifle()->End_Equip();
+	rifle->GetRifle()->End_Unequip();
 }
