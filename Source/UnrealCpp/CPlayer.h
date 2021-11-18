@@ -31,7 +31,9 @@ public:
 private:
 	UPROPERTY(VisibleDefaultsOnly)
 		class USpringArmComponent* SpringArm;
-	UPROPERTY(VisibleDefaultsOnly)
+
+protected:
+	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly)
 		class UCameraComponent* Camera;
 
 private:
@@ -41,6 +43,13 @@ private:
 public:
 	UFUNCTION(BlueprintCallable)
 		void ChangeColor(FLinearColor InColor);
+
+protected:
+	UFUNCTION(BlueprintImplementableEvent)
+		void OnZoomIn();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+		void OnZoomOut();
 
 private:
 	class ACRifle* Rifle;
