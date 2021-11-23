@@ -111,6 +111,10 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("Rifle", EInputEvent::IE_Pressed, this, &ACPlayer::OnRifle);
 	PlayerInputComponent->BindAction("Aim", EInputEvent::IE_Pressed, this, &ACPlayer::OnAim);
 	PlayerInputComponent->BindAction("Aim", EInputEvent::IE_Released, this, &ACPlayer::OffAim);
+
+	PlayerInputComponent->BindAction("Fire", EInputEvent::IE_Pressed, this, &ACPlayer::OnFire);
+	PlayerInputComponent->BindAction("Fire", EInputEvent::IE_Released, this, &ACPlayer::OffFire);
+
 }
 
 void ACPlayer::ChangeColor(FLinearColor InColor)
@@ -225,5 +229,15 @@ void ACPlayer::OffAim()
 	OnZoomOut();
 	Rifle->End_Aiming();
 	CrossHair->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void ACPlayer::OnFire()
+{
+	Rifle->Begin_Fire();
+}
+
+void ACPlayer::OffFire()
+{
+	Rifle->End_Fire();
 }
 

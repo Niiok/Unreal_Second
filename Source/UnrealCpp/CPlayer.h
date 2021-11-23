@@ -81,6 +81,6 @@ private:
 	void OnAim();
 	void OffAim();
 	
-	/*void OnFire();
-	void OffFire();*/
+	void OnFire();
+	void OffFire();
 };
