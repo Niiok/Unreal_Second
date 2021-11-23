@@ -32,6 +32,7 @@ private:
 	bool bEquipped;
 	bool bEquipping;
 	bool bAiming;
+	bool bFiring;
 
 
 public :
@@ -68,5 +69,9 @@ public:
 
 	void Begin_Aiming();
 	void End_Aiming();
+
+	void Begin_Fire();
+	void Firing();
+	void End_Fire();
 
 };

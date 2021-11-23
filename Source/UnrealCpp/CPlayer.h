@@ -32,6 +32,9 @@ private:
 	UPROPERTY(VisibleDefaultsOnly)
 		class USpringArmComponent* SpringArm;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
+		TSubclassOf<class UCUserWidget_CrossHair> CrossHairClass;
+
 protected:
 	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly)
 		class UCameraComponent* Camera;
@@ -39,6 +42,7 @@ protected:
 private:
 	class UMaterialInstanceDynamic* BodyMaterial;
 	class UMaterialInstanceDynamic* LogoMaterial;
+	class UCUserWidget_CrossHair* CrossHair;
 
 public:
 	UFUNCTION(BlueprintCallable)
@@ -56,7 +60,9 @@ private:
 
 public:
 	FORCEINLINE class ACRifle* GetRifle() override { return Rifle; }
-
+	void GetLocationAndDirection(FVector& OutStart, FVector& OutEnd, FVector& OutDirction) override;
+	void OnFocus() override;
+	void OffFocus() override;
 
 private:
 	void OnMoveForward(float Axis);
@@ -74,5 +80,7 @@ private:
 
 	void OnAim();
 	void OffAim();
-
+	
+	/*void OnFire();
+	void OffFire();*/
 };

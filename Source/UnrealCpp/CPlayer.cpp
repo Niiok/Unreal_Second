@@ -10,6 +10,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Materials/MaterialInstanceConstant.h"
 #include "CRifle.h"
+#include "Widgets/CUserWidget_CrossHair.h"
 
 // Sets default values
 ACPlayer::ACPlayer()
@@ -46,6 +47,9 @@ ACPlayer::ACPlayer()
 	SpringArm->bDoCollisionTest = false;
 	SpringArm->bUsePawnControlRotation = true;
 	SpringArm->SocketOffset = FVector(0, 60, 0);	
+
+	CHelpers::GetClass<UCUserWidget_CrossHair>(&CrossHairClass, 
+		"WidgetBlueprint'/Game/Widgets/WB_CrossHair.WB_CrossHair_C'");
 }
 
 // Called when the game starts or when spawned
@@ -73,6 +77,11 @@ void ACPlayer::BeginPlay()
 	//GetMesh()->SetMaterial(1, LogoMaterial);
 
 	Rifle = ACRifle::Spawn(GetWorld(), this);
+
+	CrossHair = CreateWidget<UCUserWidget_CrossHair, APlayerController>
+		(GetController<APlayerController>(), CrossHairClass);
+	CrossHair->AddToViewport();
+	CrossHair->SetVisibility(ESlateVisibility::Hidden);
 
 	OnRifle();
 }
@@ -108,6 +117,31 @@ void ACPlayer::ChangeColor(FLinearColor InColor)
 {
 	BodyMaterial->SetVectorParameterValue("BodyColor", InColor);
 	LogoMaterial->SetVectorParameterValue("BodyColor", InColor);
+}
+
+void ACPlayer::GetLocationAndDirection(FVector & OutStart, FVector & OutEnd, FVector & OutDirection)
+{
+	OutDirection = Camera->GetForwardVector();
+
+	FTransform transform = Camera->GetComponentToWorld();
+	FVector cameraLocation = transform.GetLocation();
+
+	OutStart = cameraLocation + OutDirection;
+
+	FVector conDirection = UKismetMathLibrary::RandomUnitVectorInEllipticalConeInDegrees(OutDirection, 0.2f, 0.3f);
+	conDirection *= 3000.0f;
+
+	OutEnd = cameraLocation + conDirection;
+}
+
+void ACPlayer::OnFocus()
+{
+	CrossHair->OnFocus();
+}
+
+void ACPlayer::OffFocus()
+{
+	CrossHair->OffFocus();
 }
 
 void ACPlayer::OnMoveForward(float Axis)
@@ -173,6 +207,7 @@ void ACPlayer::OnAim()
 
 	OnZoomIn();
 	Rifle->Begin_Aiming();
+	CrossHair->SetVisibility(ESlateVisibility::Visible);
 }
 
 void ACPlayer::OffAim()
@@ -189,5 +224,6 @@ void ACPlayer::OffAim()
 
 	OnZoomOut();
 	Rifle->End_Aiming();
+	CrossHair->SetVisibility(ESlateVisibility::Hidden);
 }
 
