@@ -35,6 +35,8 @@ ACRifle::ACRifle()
 		"AnimMontage'/Game/Character/Montages/Rifle_Grab_Montage.Rifle_Grab_Montage'");
 	CHelpers::GetAsset<UAnimMontage>(&UngrabMontage,
 		"AnimMontage'/Game/Character/Montages/Rifle_Ungrab_Montage.Rifle_Ungrab_Montage'");
+	CHelpers::GetAsset<UAnimMontage>(&FireMontage,
+		"AnimMontage'/Game/Character/Montages/Rifle_Fire_Montage.Rifle_Fire_Montage'");
 }
 
 // Called when the game starts or when spawned
@@ -166,8 +168,12 @@ void ACRifle::Firing()
 	FVector start, end, direction;
 	rifle->GetLocationAndDirection(start, end, direction);
 
-	//OwnerCharacter->PlayAnimMontage(Fire);
-	//ACPlayer* play
+	OwnerCharacter->PlayAnimMontage(FireMontage);
+	ACPlayer* player = Cast<ACPlayer>(OwnerCharacter);
+	if (!!player)
+	{
+		player->PlayCameraShake();
+	}
 
 	FCollisionQueryParams params;
 	params.AddIgnoredActor(this);

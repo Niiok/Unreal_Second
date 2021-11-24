@@ -34,6 +34,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
 		TSubclassOf<class UCUserWidget_CrossHair> CrossHairClass;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Camera")
+		TSubclassOf<class UCameraShake> CameraShakeClass;
 
 protected:
 	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly)
@@ -81,6 +84,8 @@ private:
 	void OnAim();
 	void OffAim();
 	
+public:
 	void OnFire();
 	void OffFire();
+	void PlayCameraShake();
 };

@@ -11,6 +11,7 @@
 #include "Materials/MaterialInstanceConstant.h"
 #include "CRifle.h"
 #include "Widgets/CUserWidget_CrossHair.h"
+#include "Camera/CameraShake.h"
 
 // Sets default values
 ACPlayer::ACPlayer()
@@ -50,6 +51,9 @@ ACPlayer::ACPlayer()
 
 	CHelpers::GetClass<UCUserWidget_CrossHair>(&CrossHairClass, 
 		"WidgetBlueprint'/Game/Widgets/WB_CrossHair.WB_CrossHair_C'");
+	
+	CHelpers::GetClass<UCameraShake>(&CameraShakeClass, 
+		"Blueprint'/Game/BP_CameraShake.BP_CameraShake_C'");
 }
 
 // Called when the game starts or when spawned
@@ -239,5 +243,10 @@ void ACPlayer::OnFire()
 void ACPlayer::OffFire()
 {
 	Rifle->End_Fire();
+}
+
+void ACPlayer::PlayCameraShake()
+{
+	GetController<APlayerController>()->PlayerCameraManager->PlayCameraShake(CameraShakeClass);
 }
 

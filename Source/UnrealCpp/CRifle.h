@@ -12,20 +12,23 @@ class UNREALCPP_API ACRifle : public AActor
 	GENERATED_BODY()
 
 private:
-	UPROPERTY(VisibleDefaultsOnly, Category = "Rifel")
+	UPROPERTY(VisibleDefaultsOnly, Category = "Rifle")
 		class USkeletalMeshComponent* Mesh;
 	
-	UPROPERTY(VisibleDefaultsOnly, Category = "Rifel")
+	UPROPERTY(VisibleDefaultsOnly, Category = "Rifle")
 		FName HandSocket = "Hand_Rifle";
 	
-	UPROPERTY(VisibleDefaultsOnly, Category = "Rifel")
+	UPROPERTY(VisibleDefaultsOnly, Category = "Rifle")
 		FName HolsterSocket = "Holster_Rifle";
 
-	UPROPERTY(VisibleDefaultsOnly, Category = "Rifel")
+	UPROPERTY(VisibleDefaultsOnly, Category = "Rifle")
 		class UAnimMontage* GrabMontage;
 
-	UPROPERTY(VisibleDefaultsOnly, Category = "Rifel")
+	UPROPERTY(VisibleDefaultsOnly, Category = "Rifle")
 		class UAnimMontage* UngrabMontage;
+
+	UPROPERTY(VisibleDefaultsOnly, Category = "Rifle")
+		class UAnimMontage* FireMontage;
 
 	class ACharacter* OwnerCharacter;
 
