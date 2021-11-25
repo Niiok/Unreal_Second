@@ -8,6 +8,9 @@
 #include "CPlayer.h"
 #include "Animation/AnimMontage.h"
 #include "Engine/StaticMeshActor.h"
+#include "Particles/ParticleSystem.h"
+#include "Sound/SoundCue.h"
+#include "CBullet.h"
 
 
 ACRifle * ACRifle::Spawn(UWorld * InWorld, ACharacter * InOwner)
@@ -37,6 +40,14 @@ ACRifle::ACRifle()
 		"AnimMontage'/Game/Character/Montages/Rifle_Ungrab_Montage.Rifle_Ungrab_Montage'");
 	CHelpers::GetAsset<UAnimMontage>(&FireMontage,
 		"AnimMontage'/Game/Character/Montages/Rifle_Fire_Montage.Rifle_Fire_Montage'");
+	/*CHelpers::GetAsset<UParticleSystem>(&FlashParticle,
+		"");*/
+	/*CHelpers::GetAsset<UParticleSystem>(&EjectParticle,
+		"");*/
+	/*CHelpers::GetAsset<USoundCue>(&FireSoundCue,
+		"");*/
+		
+	CHelpers::GetClass<ACBullet>(&BulletClass, "Blueprint'/Game/BP_CBullet.BP_CBullet_C'");
 }
 
 // Called when the game starts or when spawned
@@ -174,6 +185,18 @@ void ACRifle::Firing()
 	{
 		player->PlayCameraShake();
 	}
+
+	/*UGameplayStatics::SpawnEmitterAttached(FlashParticle, Mesh, "MuzzleFlash", 
+		FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::KeepRelativeOffset);*/
+		
+	/*UGameplayStatics::SpawnEmitterAttached(EjectParticle, Mesh, "EjectBullet", 
+		FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::KeepRelativeOffset);*/
+		
+	FVector muzzleLocation = Mesh->GetSocketLocation("MuzzleFlash");
+	/*UGameplayStatics::SpawnSoundAtLocation(GetWorld(), FireSoundCue, muzzleLocation);*/
+
+	if (!!BulletClass)
+		GetWorld()->SpawnActor<ACBullet>(BulletClass, muzzleLocation, direction.Rotation());
 
 	FCollisionQueryParams params;
 	params.AddIgnoredActor(this);
