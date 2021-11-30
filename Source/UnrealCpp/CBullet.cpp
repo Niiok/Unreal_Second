@@ -26,7 +26,7 @@ ACBullet::ACBullet()
 	Projectile->MaxSpeed = 2e+4f;
 	Projectile->ProjectileGravityScale = 0.0f;
 
-	InitialLifeSpan = 3.0f;
+	InitialLifeSpan = 5.0f;
 
 }
 

@@ -100,6 +100,9 @@ void ACRifle::Tick(float DeltaTime)
 		}
 	}
 
+	if (bFiring)
+		Firing();
+
 	rifle->OffFocus();
 }
 
@@ -168,11 +171,20 @@ void ACRifle::Begin_Fire()
 	CheckFalse(bAiming);
 	CheckTrue(bFiring);
 
-	Firing();
+	//Firing();
+	bFiring = true;
 }
 
 void ACRifle::Firing()
 {
+	const float bullet_per_second = 60;
+	static float time_count = 1;
+	time_count += GetWorld()->DeltaTimeSeconds;
+	if (time_count < 1.0f / bullet_per_second)
+		return;
+	else
+		time_count = 0;
+
 	IiRifle* rifle = Cast<IiRifle>(OwnerCharacter);
 	CheckNull(rifle);
 
@@ -230,4 +242,5 @@ void ACRifle::Firing()
 
 void ACRifle::End_Fire()
 {
+	bFiring = false;
 }

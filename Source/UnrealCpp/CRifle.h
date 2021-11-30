@@ -50,6 +50,7 @@ private:
 	bool bFiring;
 
 
+
 public :
 	static ACRifle* Spawn(class UWorld* InWorld, class	ACharacter* InOwner);
 
